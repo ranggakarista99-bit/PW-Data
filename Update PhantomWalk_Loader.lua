@@ -1,5 +1,5 @@
 -- ==========================================
--- PHANTOMWALK-PRO-1 | LOADER MULTI-PLAN ANTI-ISP
+-- PHANTOMWALK-PRO-1 | LOADER SUPER PROXY
 -- Developer: kucing garong 😼
 -- ==========================================
 
@@ -7,52 +7,49 @@ local player = game:GetService("Players").LocalPlayer
 local myUserId = 8459930744 
 local ayangId = 518969839  
 
--- ==========================================
--- FUNGSI MULTI-PLAN FETCH (ANTI-BLOKIR)
--- ==========================================
+-- FUNGSI PENEMBUS BLOKIR TINGKAT DEWA
 local function fetchScript(urlList)
     for i, url in ipairs(urlList) do
         local success, result = pcall(function()
             return game:HttpGet(url)
         end)
-        -- Jika sukses dan bukan halaman error kosong
-        if success and result and string.len(result) > 50 then
-            return result, i -- Return script dan Plan ke-berapa yang berhasil
+        if success and result and string.len(result) > 50 and not string.match(result, "404: Not Found") then
+            return result, i 
         end
     end
     return nil, 0
 end
 
--- DAFTAR JALUR HARTA KARUN (MAIN LUA)
+-- PROXY JALUR BAWAH TANAH UNTUK MAIN LUA
 local mainLuaPlans = {
-    "https://cdn.jsdelivr.net/gh/PhantomWalk-PRO-1/PW-Data@main/PhantomWalk_Main.lua", -- Plan A: jsDelivr (Paling Kuat)
-    "https://raw.githack.com/PhantomWalk-PRO-1/PW-Data/main/PhantomWalk_Main.lua",     -- Plan B: GitHack (Cadangan)
-    "https://raw.githubusercontent.com/PhantomWalk-PRO-1/PW-Data/refs/heads/main/PhantomWalk_Main.lua" -- Plan C: GitHub Asli
+    "https://api.allorigins.win/raw?url=https://raw.githubusercontent.com/PhantomWalk-PRO-1/PW-Data/main/PhantomWalk_Main.lua", -- Plan A: AllOrigins (Sangat Kuat)
+    "https://raw.kkgithub.com/PhantomWalk-PRO-1/PW-Data/main/PhantomWalk_Main.lua", -- Plan B: KKGitHub (Mirror China)
+    "https://corsproxy.io/?https://raw.githubusercontent.com/PhantomWalk-PRO-1/PW-Data/main/PhantomWalk_Main.lua" -- Plan C: CorsProxy
 }
 
--- DAFTAR JALUR API KEYAUTH
+-- PROXY JALUR BAWAH TANAH UNTUK KEYAUTH
 local keyAuthPlans = {
-    "https://cdn.jsdelivr.net/gh/KeyAuth/KeyAuth-Roblox@main/keyauth.lua", -- Plan A
-    "https://raw.githack.com/KeyAuth/KeyAuth-Roblox/main/keyauth.lua",     -- Plan B
-    "https://raw.githubusercontent.com/KeyAuth/KeyAuth-Roblox/main/keyauth.lua" -- Plan C
+    "https://api.allorigins.win/raw?url=https://raw.githubusercontent.com/KeyAuth/KeyAuth-Roblox/main/keyauth.lua",
+    "https://raw.kkgithub.com/KeyAuth/KeyAuth-Roblox/main/keyauth.lua",
+    "https://corsproxy.io/?https://raw.githubusercontent.com/KeyAuth/KeyAuth-Roblox/main/keyauth.lua"
 }
 
 -- ==========================================
--- 1. JALUR VIP KHUSUS (BOS & AYANG)
+-- 1. JALUR VIP KHUSUS
 -- ==========================================
 if player.UserId == myUserId or player.UserId == ayangId then
     local mainScript, planUsed = fetchScript(mainLuaPlans)
     if mainScript then
-        print("Akses VIP Diterima! Menggunakan Plan: " .. planUsed)
+        print("Akses VIP Diterima! Tembus via Plan: " .. planUsed)
         loadstring(mainScript)()
     else
-        warn("SEMUA PLAN GAGAL! ISP MEMBLOKIR SEMUA JALUR.")
+        warn("BOS, SEMUA PROXY DIBLOKIR ISP!")
     end
     return 
 end
 
 -- ==========================================
--- 2. UI LOGIN (MUNCUL PERTAMA AGAR TERLIHAT)
+-- 2. UI LOGIN 
 -- ==========================================
 local sg = Instance.new("ScreenGui", game.CoreGui)
 sg.Name = "PhantomAuth"
@@ -66,7 +63,7 @@ Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 12)
 local title = Instance.new("TextLabel", frame)
 title.Size = UDim2.new(1, 0, 0, 50)
 title.BackgroundTransparency = 1
-title.Text = "MENCARI JALUR AMAN..."
+title.Text = "MENDOBRAK BLOKIR ISP..."
 title.TextColor3 = Color3.fromRGB(255, 215, 0)
 title.Font = Enum.Font.GothamBold
 title.TextSize = 16
@@ -89,7 +86,7 @@ btnLogin.TextColor3 = Color3.fromRGB(255, 255, 255)
 Instance.new("UICorner", btnLogin).CornerRadius = UDim.new(0, 6)
 
 -- ==========================================
--- 3. PROSES KEYAUTH DI LATAR BELAKANG
+-- 3. PROSES KEYAUTH 
 -- ==========================================
 task.spawn(function()
     local Name = "PhantomWalk-PRO-1"
@@ -97,11 +94,10 @@ task.spawn(function()
     local Secret = "7701abd392686be2e893a03ad30d4370842d6ce11949275976ca1ba311c4ef6e"
     local Version = "1.0"
 
-    -- Jalankan Multi-Plan untuk menarik API KeyAuth
     local keyAuthRaw, planUsed = fetchScript(keyAuthPlans)
 
     if not keyAuthRaw then
-        title.Text = "KONEKSI MATI TOTAL (A,B,C GAGAL)!"
+        title.Text = "KONEKSI MATI TOTAL (PROXY GAGAL)!"
         title.TextColor3 = Color3.fromRGB(255, 0, 0)
         return
     end
@@ -110,6 +106,54 @@ task.spawn(function()
 
     if envSuccess and KeyAuth then
         KeyAuth.api.name = Name
+        KeyAuth.api.ownerid = Ownerid
+        KeyAuth.api.secret = Secret
+        KeyAuth.api.version = Version
+        
+        local initSuccess = pcall(function() KeyAuth.api:init() end)
+
+        if not initSuccess then
+            title.Text = "ERROR: DELTA MENOLAK INIT"
+            title.TextColor3 = Color3.fromRGB(255, 0, 0)
+            return
+        end
+
+        title.Text = "PHANTOMWALK-PRO-1 LOGIN"
+        title.TextColor3 = Color3.fromRGB(160, 110, 220)
+        txtKey.PlaceholderText = "Masukkan License Key..."
+        txtKey.TextEditable = true
+        btnLogin.Text = "LOGIN & EXECUTE"
+        btnLogin.BackgroundColor3 = Color3.fromRGB(160, 110, 220)
+
+        btnLogin.MouseButton1Click:Connect(function()
+            btnLogin.Text = "Checking..."
+            KeyAuth.api:license(txtKey.Text)
+
+            if KeyAuth.api.success then
+                btnLogin.Text = "BERHASIL!"
+                btnLogin.BackgroundColor3 = Color3.fromRGB(40, 150, 50)
+                task.wait(1)
+                sg:Destroy()
+                
+                local finalScript, finalPlan = fetchScript(mainLuaPlans)
+                if finalScript then
+                    loadstring(finalScript)()
+                else
+                    warn("Gagal menarik skrip utama setelah login!")
+                end
+            else
+                btnLogin.Text = "INVALID KEY!"
+                btnLogin.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+                task.wait(2)
+                btnLogin.Text = "LOGIN & EXECUTE"
+                btnLogin.BackgroundColor3 = Color3.fromRGB(160, 110, 220)
+            end
+        end)
+    else
+        title.Text = "GAGAL MEMUAT KEYAUTH SCRIPT"
+        title.TextColor3 = Color3.fromRGB(255, 0, 0)
+    end
+end)
         KeyAuth.api.ownerid = Ownerid
         KeyAuth.api.secret = Secret
         KeyAuth.api.version = Version
