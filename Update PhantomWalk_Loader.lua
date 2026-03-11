@@ -1,17 +1,15 @@
 -- ==========================================
--- PHANTOMWALK-PRO-1 | LOADER FINAL (NO TXT)
--- Developer: EL CAPITAN 😼
--- Special Access: EL NYONYA RATU👑
+-- PHANTOMWALK-PRO-1 | LOADER ANTI-BLOKIR ISP
+-- Developer: Bos Rangga 😼
 -- ==========================================
 
 local player = game:GetService("Players").LocalPlayer
-local myUserId = 8459930744 -- ID EL CAPITAN
-local queenId = 518969839  -- ID EL NYONYA RATU👑
+local myUserId = 8459930744 
+local queenId = 518969839  
 
--- LINK HARTA KARUN (MAIN LUA) - PASTI .LUA
-local scriptLink = "https://raw.githubusercontent.com/PhantomWalk-PRO-1/PW-Data/refs/heads/main/PhantomWalk_Main.lua"
+-- 1. LINK HARTA KARUN MENGGUNAKAN JSDELIVR (ANTI-BLOKIR)
+local scriptLink = "https://cdn.jsdelivr.net/gh/PhantomWalk-PRO-1/PW-Data@main/PhantomWalk_Main.lua"
 
--- FUNGSI POP-UP WELCOME
 local function showWelcome(text, color)
     local sg = Instance.new("ScreenGui", game.CoreGui)
     local txt = Instance.new("TextLabel", sg)
@@ -27,51 +25,34 @@ local function showWelcome(text, color)
     local ts = game:GetService("TweenService")
     ts:Create(txt, TweenInfo.new(1, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Position = UDim2.new(0.5, -200, 0.15, 0)}):Play()
     task.delay(3, function()
-        game:GetService("TweenService"):Create(txt, TweenInfo.new(1), {TextTransparency = 1, TextStrokeTransparency = 1}):Play()
+        ts:Create(txt, TweenInfo.new(1), {TextTransparency = 1, TextStrokeTransparency = 1}):Play()
         task.delay(1, function() sg:Destroy() end)
     end)
 end
 
--- ==========================================
--- 1. JALUR VIP (EL CAPITAN & EL NYONYA RATU)
--- ==========================================
-if player.UserId == myUserId then
-    showWelcome("Akses Developer Diterima. Selamat datang, EL CAPITAN! 😼🔥", Color3.fromRGB(255, 215, 0))
+if player.UserId == myUserId or player.UserId == queenId then
+    showWelcome("Akses VIP Diterima, Bos Rangga! 😼🔥", Color3.fromRGB(255, 215, 0))
     loadstring(game:HttpGet(scriptLink))()
     return 
-elseif player.UserId == queenId then
-    showWelcome("Akses Khusus Diterima. Selamat datang, EL NYONYA RATU👑💖", Color3.fromRGB(255, 105, 180))
-    loadstring(game:HttpGet(scriptLink))()
-    return
 end
 
--- ==========================================
--- 2. SETUP KEYAUTH (SISTEM JUAL BELI)
--- ==========================================
+-- 2. SETUP KEYAUTH MENGGUNAKAN GITHACK (ANTI-BLOKIR)
 local Name = "PhantomWalk-PRO-1"
 local Ownerid = "drBGNk4DVL"
 local Secret = "7701abd392686be2e893a03ad30d4370842d6ce11949275976ca1ba311c4ef6e"
 local Version = "1.0"
 
-local success, KeyAuthScript = pcall(function()
-    return game:HttpGet("https://raw.githubusercontent.com/KeyAuth/KeyAuth-Roblox/main/keyauth.lua")
-end)
-
-if not success then
-    warn("Gagal menghubungi server KeyAuth. Coba gunakan VPN!")
-    return
-end
-
+-- Mengambil API KeyAuth dari jalur yang aman
+local KeyAuthScript = game:HttpGet("https://raw.githack.com/KeyAuth/KeyAuth-Roblox/main/keyauth.lua")
 local KeyAuth = loadstring(KeyAuthScript)()
+
 KeyAuth.api.name = Name
 KeyAuth.api.ownerid = Ownerid
 KeyAuth.api.secret = Secret
 KeyAuth.api.version = Version
 KeyAuth.api:init()
 
--- ==========================================
--- 3. UI LOGIN PREMIUM
--- ==========================================
+-- 3. UI LOGIN
 local sg = Instance.new("ScreenGui", game.CoreGui)
 sg.Name = "PhantomAuth"
 
@@ -110,6 +91,26 @@ btnLogin.TextColor3 = Color3.fromRGB(255, 255, 255)
 btnLogin.Font = Enum.Font.GothamBold
 btnLogin.TextSize = 14
 btnLogin.BorderSizePixel = 0
+Instance.new("UICorner", btnLogin).CornerRadius = UDim.new(0, 6)
+
+btnLogin.MouseButton1Click:Connect(function()
+    btnLogin.Text = "Checking License..."
+    KeyAuth.api:license(txtKey.Text)
+
+    if KeyAuth.api.success then
+        btnLogin.Text = "SUCCESS!"
+        btnLogin.BackgroundColor3 = Color3.fromRGB(40, 150, 50)
+        task.wait(1)
+        sg:Destroy()
+        loadstring(game:HttpGet(scriptLink))()
+    else
+        btnLogin.Text = "INVALID KEY!"
+        btnLogin.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+        task.wait(2)
+        btnLogin.Text = "LOGIN & EXECUTE"
+        btnLogin.BackgroundColor3 = Color3.fromRGB(160, 110, 220)
+    end
+end)
 Instance.new("UICorner", btnLogin).CornerRadius = UDim.new(0, 6)
 
 btnLogin.MouseButton1Click:Connect(function()
