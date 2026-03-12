@@ -1,5 +1,5 @@
 -- ==========================================
--- PHANTOMWALK-PRO-1 | LOADER VVIP (CLEAN)
+-- PHANTOMWALK-PRO-1 | LOADER VVIP (DIAGNOSTIK)
 -- Developer: kucing garong 😼
 -- ==========================================
 
@@ -42,6 +42,8 @@ txtKey.BackgroundColor3 = Color3.fromRGB(30, 20, 40)
 txtKey.TextColor3 = Color3.fromRGB(255, 255, 255)
 txtKey.PlaceholderText = "Sabar, menyambungkan ke server..."
 txtKey.TextEditable = false 
+txtKey.TextXAlignment = Enum.TextXAlignment.Left -- Biar errornya kebaca dari kiri
+txtKey.ClipsDescendants = true
 Instance.new("UICorner", txtKey).CornerRadius = UDim.new(0, 6)
 
 local btnLogin = Instance.new("TextButton", frame)
@@ -59,13 +61,26 @@ task.spawn(function()
     local Secret = "7701abd392686be2e893a03ad30d4370842d6ce11949275976ca1ba311c4ef6e"
     local Version = "1.0"
 
+    -- Coba 2 Jalur untuk KeyAuth (GitHub dan jsDelivr)
+    local keyAuthUrl1 = "https://raw.githubusercontent.com/KeyAuth/KeyAuth-Roblox/main/keyauth.lua"
+    local keyAuthUrl2 = "https://cdn.jsdelivr.net/gh/KeyAuth/KeyAuth-Roblox@main/keyauth.lua"
+
     local success, KeyAuthScript = pcall(function()
-        return game:HttpGet("https://raw.githubusercontent.com/KeyAuth/KeyAuth-Roblox/main/keyauth.lua")
+        return game:HttpGet(keyAuthUrl1)
     end)
 
-    if not success or string.match(KeyAuthScript, "404: Not Found") then
+    if not success or string.match(tostring(KeyAuthScript), "404: Not Found") then
+        success, KeyAuthScript = pcall(function()
+            return game:HttpGet(keyAuthUrl2)
+        end)
+    end
+
+    -- JIKA TETAP GAGAL, TAMPILKAN ERROR KE TEXTBOX
+    if not success or string.match(tostring(KeyAuthScript), "404: Not Found") then
         title.Text = "GAGAL MENARIK KEYAUTH"
         title.TextColor3 = Color3.fromRGB(255, 0, 0)
+        txtKey.Text = tostring(KeyAuthScript) -- Error dimunculkan di sini!
+        btnLogin.Text = "KIRIM FOTO INI KE BOS"
         return
     end
 
@@ -80,6 +95,7 @@ task.spawn(function()
         pcall(function() KeyAuth.api:init() end)
 
         -- BUKA KUNCI UI
+        txtKey.Text = ""
         txtKey.PlaceholderText = "Masukkan License Key..."
         txtKey.TextEditable = true
         btnLogin.Text = "LOGIN & EXECUTE"
@@ -96,11 +112,11 @@ task.spawn(function()
                 sg:Destroy()
                 
                 -- EKSEKUSI HARTA KARUN
-                local mainCode = game:HttpGet(scriptLink)
-                if mainCode and not string.match(mainCode, "404: Not Found") then
+                local mainSuccess, mainCode = pcall(function() return game:HttpGet(scriptLink) end)
+                if mainSuccess and mainCode and not string.match(mainCode, "404: Not Found") then
                     loadstring(mainCode)()
                 else
-                    warn("Harta Karun gagal ditarik! Cek nama file di GitHub.")
+                    warn("Harta Karun gagal ditarik! Error: " .. tostring(mainCode))
                 end
             else
                 btnLogin.Text = "INVALID KEY!"
@@ -110,5 +126,11 @@ task.spawn(function()
                 btnLogin.BackgroundColor3 = Color3.fromRGB(160, 110, 220)
             end
         end)
+    else
+        title.Text = "LOADSTRING KEYAUTH GAGAL"
+        title.TextColor3 = Color3.fromRGB(255, 0, 0)
+        txtKey.Text = tostring(KeyAuth)
+    end
+end)
     end
 end)
