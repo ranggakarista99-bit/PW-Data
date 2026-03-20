@@ -13,7 +13,7 @@ local myName = player.Name
 -- WAJIB ISI DENGAN USERNAME ASLI ROBLOX!
 -- ==========================================
 
-local elKapitanName = "kenalin_r" -- Ganti dengan Username Bos Rangga
+local elKapitanName = "kenalin_r" -- Ganti dengan Username Bos
 local ayangName = "catcatkitty098"    -- Ganti dengan Username Nyonya Ratu
 
 -- 💌 Pesan khusus yang muncul di bawah nama Nyonya Ratu
@@ -22,7 +22,6 @@ local pesanBuatAyang = "mangat ayyyy! " .. utf8.char(10084) .. utf8.char(128150)
 -- 🌟 Daftar Spesial Member (Format: ["Username"] = "Nama Sambutan")
 local specialMembers = {
     ["OmGifar133"] = utf8.char(128081) .. " OM GIFAR " .. utf8.char(128081),
-    ["myanxie1"] = "DUTA BASECAMP",
     ["Anomali_9950"] = "BEST PRENNN",
     ["jaja"] = "BEST PRENNN",
     ["hsj"] = "BEST PRENNN",
@@ -194,9 +193,24 @@ task.spawn(function()
         return game:HttpGet(url)
     end
 
-    local initRes = request_get("https://keyauth.win/api/1.2/?type=init&ver="..Version.."&name="..Name.."&ownerid="..Ownerid)
-    local initData = HttpService:JSONDecode(initRes)
-    if not initData.success then infoLabel.Text = "Server Error: " .. initData.message return end
+    local initSuccess, initRes = pcall(function()
+        return request_get("https://keyauth.win/api/1.2/?type=init&ver="..Version.."&name="..Name.."&ownerid="..Ownerid)
+    end)
+    
+    if not initSuccess or not initRes or initRes == "" then
+        infoLabel.Text = "Server Error: Gagal menginisialisasi KeyAuth"
+        return
+    end
+
+    local decodeInitSuccess, initData = pcall(function()
+        return HttpService:JSONDecode(initRes)
+    end)
+
+    if not decodeInitSuccess or not initData.success then 
+        infoLabel.Text = "Server Error: " .. (initData and initData.message or "Rate Limit / Gangguan") 
+        return 
+    end
+    
     sessionid = initData.sessionid
 
     local savedKey = ""
@@ -210,9 +224,32 @@ task.spawn(function()
 
     local function tryLogin(key)
         btnLogin.Text = "Mengecek License..."
-        local licRes = request_get("https://keyauth.win/api/1.2/?type=license&key="..key.."&hwid="..hwid.."&sessionid="..sessionid.."&name="..Name.."&ownerid="..Ownerid.."&ver="..Version)
-        local licData = HttpService:JSONDecode(licRes)
+        
+        -- Menangkap error koneksi
+        local reqSuccess, licRes = pcall(function()
+            return request_get("https://keyauth.win/api/1.2/?type=license&key="..key.."&hwid="..hwid.."&sessionid="..sessionid.."&name="..Name.."&ownerid="..Ownerid.."&ver="..Version)
+        end)
 
+        if not reqSuccess or not licRes or licRes == "" then
+            infoLabel.Text = "Gagal: Koneksi terputus atau Server KeyAuth Down!"
+            btnLogin.Text = "LOGIN & EXECUTE"
+            txtKey.Visible = true
+            return
+        end
+
+        -- Menangkap error JSON (biasanya karena Cloudflare block / rate limit)
+        local decodeSuccess, licData = pcall(function()
+            return HttpService:JSONDecode(licRes)
+        end)
+
+        if not decodeSuccess then
+            infoLabel.Text = "Gagal: Terlalu banyak request (Rate Limit). Tunggu sebentar!"
+            btnLogin.Text = "LOGIN & EXECUTE"
+            txtKey.Visible = true
+            return
+        end
+
+        -- Proses login jika data JSON valid
         if licData.success then
             pcall(function() writefile(saveFileName, HttpService:JSONEncode({Key = key})) end)
             
