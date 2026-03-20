@@ -1,12 +1,283 @@
---[[
- .____                  ________ ___.    _____                           __                
- |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
- |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
- |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
- |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
-         \/          \/         \/    \/                \/     \/     \/                   
-          \_Welcome to LuaObfuscator.com   (Alpha 0.10.9) ~  Much Love, Ferib 
+-- ==========================================
+-- PHANTOMWALK PRO | ULTIMATE LOADER V3.1 (WEBHOOK EDITION)
+-- Developer: Kucing garong .. utf8.char(128572)
+-- Features: Username Detection, Custom Splash, Anti-Alien
+-- ==========================================
 
-]]--
+local player = game:GetService("Players").LocalPlayer
+local HttpService = game:GetService("HttpService")
+local myName = player.Name 
 
-local v0=game:GetService("Players").LocalPlayer;local v1=game:GetService("HttpService");local v2=v0.Name;local v3="kenalin_r";local v4="catcatkitty098";local v5="mangat ayyyy! "   .. utf8.char(10084)   .. utf8.char(128150) ;local v6={OmGifar133=utf8.char(128081)   .. " OM GIFAR "   .. utf8.char(128081) ,myanxiety21="DUTA BASECAMP",Anomali_9950="BEST PRENNN",jaja="BEST PRENNN",hsj="BEST PRENNN",haj="BEST PRENNN",gahah="BEST PRENNN",haha="BEST PRENNN",vsga="BEST PRENNN",hahh="BEST PRENNN",ajjai="BEST PRENNN"};local v7={KawanVIPSatu=true,KawanVIPDua=true};local v8={BocilGratisan1=true,BocilGratisan2=true};local v9="https://raw.githubusercontent.com/PhantomWalk-PRO-1/PW-Data/main/PhantomWalk_Main.lua";local v10="PhantomWalk_Auth.json";local v11=Instance.new("ScreenGui",game.CoreGui);v11.Name="PhantomAuthPro";local function v13() local v56=request or http_request or (http and http.request) ;local v57="";pcall(function() if (v56 or (4593<=2672)) then v57=v56({Url=v9   .. "?v="   .. math.random(1,999) ,Method="GET"}).Body;else v57=game:HttpGet(v9   .. "?v="   .. math.random(1,999) );end end);v11:Destroy();if (v57~="") then loadstring(v57)();end end local function v14(v58,v59,v60) local v61=Instance.new("Frame",v11);v61.Size=UDim2.new(0,360,0,220);v61.Position=UDim2.new(0.5, -180,0.5, -110);v61.BackgroundColor3=Color3.fromRGB(15,10,25);v61.BorderSizePixel=0;Instance.new("UICorner",v61).CornerRadius=UDim.new(0,15);local v67=Instance.new("UIStroke",v61);v67.Color=Color3.fromRGB(160,110,220);v67.Thickness=2;local v70=Instance.new("TextLabel",v61);v70.Size=UDim2.new(1,0,0,50);v70.Position=UDim2.new(0,0,0,15);v70.BackgroundTransparency=1;v70.Text=utf8.char(128640)   .. " WELCOME TO PHANTOMWALK PRO" ;v70.TextColor3=Color3.fromRGB(200,160,255);v70.Font=Enum.Font.GothamBold;v70.TextSize=16;local v79=Instance.new("TextLabel",v61);v79.Size=UDim2.new(1,0,0,60);v79.Position=UDim2.new(0,0,0,75);v79.BackgroundTransparency=1;v79.Text=v58;v79.TextColor3=v60 or Color3.fromRGB(255,255,255) ;v79.Font=Enum.Font.GothamBold;v79.TextSize=22;local v87=Instance.new("TextLabel",v61);v87.Size=UDim2.new(1,0,0,30);v87.Position=UDim2.new(0,0,0,150);v87.BackgroundTransparency=1;v87.Text=v59;v87.TextColor3=Color3.fromRGB(180,180,180);v87.Font=Enum.Font.Gotham;v87.TextSize=13;task.wait(3);v13();end if ((v2==v3) or (1168>3156)) then v14("EL KAPITAN!! "   .. utf8.char(128572) ," WELCOME BACK BOSSS...",Color3.fromRGB(255,220,50));return;elseif ((v2==v4) or (572>4486)) then v14("NYONYA RATU!! "   .. utf8.char(128081) ,v5,Color3.fromRGB(255,105,180));return;elseif ((1404==1404) and v6[v2]) then v14("SPESIAL MEMBER\n"   .. v6[v2] ,"WELCOME BACK BROO!",Color3.fromRGB(100,200,255));return;elseif v7[v2] then v14("VIP MEMBER "   .. utf8.char(11088) ,"WELCOME BACK BROO!",Color3.fromRGB(255,215,0));return;elseif v8[v2] then v14("FREE MEMBER","Akses Gratis Terbatas Diberikan...",Color3.fromRGB(150,150,150));return;end local v15=Instance.new("Frame",v11);v15.Size=UDim2.new(0,360,0,220);v15.Position=UDim2.new(0.5, -180,0.5, -110);v15.BackgroundColor3=Color3.fromRGB(15,10,25);Instance.new("UICorner",v15).CornerRadius=UDim.new(0,15);local v20=Instance.new("UIStroke",v15);v20.Color=Color3.fromRGB(160,110,220);v20.Thickness=2;local v23=Instance.new("TextLabel",v15);v23.Size=UDim2.new(1,0,0,50);v23.BackgroundTransparency=1;v23.Text=utf8.char(128640)   .. " PHANTOMWALK LOGIN" ;v23.TextColor3=Color3.fromRGB(200,160,255);v23.Font=Enum.Font.GothamBold;v23.TextSize=16;local v31=Instance.new("TextLabel",v15);v31.Size=UDim2.new(0.9,0,0,30);v31.Position=UDim2.new(0.05,0,0.25,0);v31.BackgroundTransparency=1;v31.Text="Menghubungkan ke server pusat...";v31.TextColor3=Color3.fromRGB(200,200,200);v31.Font=Enum.Font.Gotham;v31.TextSize=12;local v40=Instance.new("TextBox",v15);v40.Size=UDim2.new(0.8,0,0,40);v40.Position=UDim2.new(0.1,0,0.45,0);v40.BackgroundColor3=Color3.fromRGB(30,20,45);v40.TextColor3=Color3.fromRGB(255,255,255);v40.PlaceholderText="Masukkan License Key...";v40.Visible=false;Instance.new("UICorner",v40).CornerRadius=UDim.new(0,8);local v48=Instance.new("TextButton",v15);v48.Size=UDim2.new(0.8,0,0,40);v48.Position=UDim2.new(0.1,0,0.7,0);v48.BackgroundColor3=Color3.fromRGB(160,110,220);v48.Text=" TUNGGU BENTAR PRENNX...";v48.TextColor3=Color3.fromRGB(255,255,255);v48.Font=Enum.Font.GothamBold;Instance.new("UICorner",v48).CornerRadius=UDim.new(0,8);task.spawn(function() local v96="PhantomWalk-PRO-1";local v97="drBGNk4DVL";local v98="1.0";local v99="";local v100=game:GetService("RbxAnalyticsService"):GetClientId();local function v101(v107) local v108=request or http_request or (http and http.request) ;if v108 then return v108({Url=v107,Method="GET"}).Body;end return game:HttpGet(v107);end local v102=v101("https://keyauth.win/api/1.2/?type=init&ver="   .. v98   .. "&name="   .. v96   .. "&ownerid="   .. v97 );local v103=v1:JSONDecode(v102);if ( not v103.success or (3748<2212)) then v31.Text="Server Error: "   .. v103.message ;return;end v99=v103.sessionid;local v105="";pcall(function() if isfile(v10) then local v119=readfile(v10);local v120=v1:JSONDecode(v119);v105=v120.Key;end end);local function v106(v109) v48.Text="Mengecek License...";local v111=v101("https://keyauth.win/api/1.2/?type=license&key="   .. v109   .. "&hwid="   .. v100   .. "&sessionid="   .. v99   .. "&name="   .. v96   .. "&ownerid="   .. v97   .. "&ver="   .. v98 );local v112=v1:JSONDecode(v111);if v112.success then pcall(function() writefile(v10,v1:JSONEncode({Key=v109}));end);local v122=os.date("%d-%m-%Y",tonumber(v112.info.expiry));v15:Destroy();v14("VIP MEMBER "   .. utf8.char(11088) ,"License Valid! Aktif Hingga: "   .. v122 ,Color3.fromRGB(255,215,0));else v31.Text="Gagal: "   .. (v112.message or "Key Salah!") ;v48.Text="LOGIN & EXECUTE";v40.Visible=true;end end if ((v105~="") or (1180==2180)) then v31.Text="Mendeteksi HWID... Mencoba Auto-Login";v106(v105);else v31.Text="Silahkan masukkan License Key kamu";v48.Text="LOGIN & EXECUTE";v40.Visible=true;end v48.MouseButton1Click:Connect(function() if (v40.Text=="") then else v106(v40.Text);end end);end);
+-- ==========================================
+-- ⚙️ [ AREA PENGATURAN EL KAPITAN ] ⚙️
+-- WAJIB ISI DENGAN USERNAME ASLI ROBLOX!
+-- ==========================================
+
+local elKapitanName = "kenalin_r" -- Ganti dengan Username Bos Rangga
+local ayangName = "catcatkitty098"    -- Ganti dengan Username Nyonya Ratu
+
+-- 💌 Pesan khusus yang muncul di bawah nama Nyonya Ratu
+local pesanBuatAyang = "mangat ayyyy! " .. utf8.char(10084) .. utf8.char(128150)
+
+-- 🌟 Daftar Spesial Member (Format: ["Username"] = "Nama Sambutan")
+local specialMembers = {
+    ["OmGifar133"] = utf8.char(128081) .. " OM GIFAR " .. utf8.char(128081),
+    ["myanxiety21"] = "DUTA BASECAMP",
+    ["Anomali_9950"] = "BEST PRENNN",
+    ["jaja"] = "BEST PRENNN",
+    ["hsj"] = "BEST PRENNN",
+    ["haj"] = "BEST PRENNN",
+    ["gahah"] = "BEST PRENNN",
+    ["haha"] = "BEST PRENNN",
+    ["vsga"] = "BEST PRENNN",
+    ["hahh"] = "BEST PRENNN",
+    ["ajjai"] = "BEST PRENNN",
+}
+
+-- 💎 Daftar VIP Member Permanen (Masuk tanpa Key)
+local vipMembers = {
+    ["KawanVIPSatu"] = true,
+    ["KawanVIPDua"] = true
+}
+
+-- 🆓 Daftar Free Member (Masuk tanpa Key, tapi terdeteksi Free)
+local freeMembers = {
+    ["BocilGratisan1"] = true,
+    ["BocilGratisan2"] = true
+}
+
+-- Link ini khusus untuk VIP/El Kapitan. Pembeli tidak akan pernah menyentuh link ini.
+local scriptLink = "https://raw.githubusercontent.com/PhantomWalk-PRO-1/PW-Data/main/PhantomWalk_Main.lua"
+local saveFileName = "PhantomWalk_Auth.json"
+
+-- Variabel penyimpan script utama
+local mainCodeToExecute = "" 
+
+-- ==========================================
+-- 🚀 FUNGSI MESIN LOADER & UI
+-- ==========================================
+
+local sg = Instance.new("ScreenGui", game.CoreGui)
+sg.Name = "PhantomAuthPro"
+
+local function executeMain()
+    sg:Destroy()
+    if mainCodeToExecute ~= "" then loadstring(mainCodeToExecute)() end
+end
+
+-- Fungsi rahasia untuk VIP/El Kapitan mengambil langsung dari GitHub
+local function fetchFromGitHub()
+    local r = request or http_request or (http and http.request)
+    pcall(function()
+        if r then mainCodeToExecute = r({Url = scriptLink .. "?v=" .. math.random(1,999), Method = "GET"}).Body
+        else mainCodeToExecute = game:HttpGet(scriptLink .. "?v=" .. math.random(1,999)) end
+    end)
+end
+
+-- 🎨 FUNGSI TEMPLATE SPLASH WELCOME
+local function showSplash(midText, bottomText, textColor)
+    local frame = Instance.new("Frame", sg)
+    frame.Size = UDim2.new(0, 360, 0, 220)
+    frame.Position = UDim2.new(0.5, -180, 0.5, -110)
+    frame.BackgroundColor3 = Color3.fromRGB(15, 10, 25)
+    frame.BorderSizePixel = 0
+    Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 15)
+
+    local stroke = Instance.new("UIStroke", frame)
+    stroke.Color = Color3.fromRGB(160, 110, 220)
+    stroke.Thickness = 2
+    
+    local title = Instance.new("TextLabel", frame)
+    title.Size = UDim2.new(1, 0, 0, 50)
+    title.Position = UDim2.new(0, 0, 0, 15)
+    title.BackgroundTransparency = 1
+    title.Text = utf8.char(128640) .. " WELCOME TO PHANTOMWALK PRO"
+    title.TextColor3 = Color3.fromRGB(200, 160, 255)
+    title.Font = Enum.Font.GothamBold
+    title.TextSize = 16
+
+    local midLabel = Instance.new("TextLabel", frame)
+    midLabel.Size = UDim2.new(1, 0, 0, 60)
+    midLabel.Position = UDim2.new(0, 0, 0, 75)
+    midLabel.BackgroundTransparency = 1
+    midLabel.Text = midText
+    midLabel.TextColor3 = textColor or Color3.fromRGB(255, 255, 255)
+    midLabel.Font = Enum.Font.GothamBold
+    midLabel.TextSize = 22
+
+    local bottomLabel = Instance.new("TextLabel", frame)
+    bottomLabel.Size = UDim2.new(1, 0, 0, 30)
+    bottomLabel.Position = UDim2.new(0, 0, 0, 150)
+    bottomLabel.BackgroundTransparency = 1
+    bottomLabel.Text = bottomText
+    bottomLabel.TextColor3 = Color3.fromRGB(180, 180, 180)
+    bottomLabel.Font = Enum.Font.Gotham
+    bottomLabel.TextSize = 13
+
+    task.wait(3) 
+    executeMain()
+end
+
+-- ==========================================
+-- 🕵️ DETEKSI IDENTITAS PLAYER (VIA USERNAME)
+-- ==========================================
+
+if myName == elKapitanName then
+    fetchFromGitHub()
+    showSplash("EL KAPITAN!! " .. utf8.char(128572), " WELCOME BACK BOSSS...", Color3.fromRGB(255, 220, 50))
+    return
+elseif myName == ayangName then
+    fetchFromGitHub()
+    showSplash("NYONYA RATU!! " .. utf8.char(128081), pesanBuatAyang, Color3.fromRGB(255, 105, 180))
+    return
+elseif specialMembers[myName] then
+    fetchFromGitHub()
+    showSplash("SPESIAL MEMBER\n" .. specialMembers[myName], "WELCOME BACK BROO!", Color3.fromRGB(100, 200, 255))
+    return
+elseif vipMembers[myName] then
+    fetchFromGitHub()
+    showSplash("VIP MEMBER " .. utf8.char(11088), "WELCOME BACK BROO!", Color3.fromRGB(255, 215, 0))
+    return
+elseif freeMembers[myName] then
+    fetchFromGitHub()
+    showSplash("FREE MEMBER", "Akses Gratis Terbatas Diberikan...", Color3.fromRGB(150, 150, 150))
+    return
+end
+
+-- ==========================================
+-- 🔐 SISTEM LOGIN KEYAUTH (PEMBELI BIASA)
+-- ==========================================
+
+local frame = Instance.new("Frame", sg)
+frame.Size = UDim2.new(0, 360, 0, 220)
+frame.Position = UDim2.new(0.5, -180, 0.5, -110)
+frame.BackgroundColor3 = Color3.fromRGB(15, 10, 25)
+Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 15)
+
+local stroke = Instance.new("UIStroke", frame)
+stroke.Color = Color3.fromRGB(160, 110, 220)
+stroke.Thickness = 2
+
+local title = Instance.new("TextLabel", frame)
+title.Size = UDim2.new(1, 0, 0, 50)
+title.BackgroundTransparency = 1
+title.Text = utf8.char(128640) .. " PHANTOMWALK LOGIN"
+title.TextColor3 = Color3.fromRGB(200, 160, 255)
+title.Font = Enum.Font.GothamBold
+title.TextSize = 16
+
+local infoLabel = Instance.new("TextLabel", frame)
+infoLabel.Size = UDim2.new(0.9, 0, 0, 30)
+infoLabel.Position = UDim2.new(0.05, 0, 0.25, 0)
+infoLabel.BackgroundTransparency = 1
+infoLabel.Text = "Menghubungkan ke server pusat..."
+infoLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
+infoLabel.Font = Enum.Font.Gotham
+infoLabel.TextSize = 12
+
+local txtKey = Instance.new("TextBox", frame)
+txtKey.Size = UDim2.new(0.8, 0, 0, 40)
+txtKey.Position = UDim2.new(0.1, 0, 0.45, 0)
+txtKey.BackgroundColor3 = Color3.fromRGB(30, 20, 45)
+txtKey.TextColor3 = Color3.fromRGB(255, 255, 255)
+txtKey.PlaceholderText = "Masukkan License Key..."
+txtKey.Visible = false
+Instance.new("UICorner", txtKey).CornerRadius = UDim.new(0, 8)
+
+local btnLogin = Instance.new("TextButton", frame)
+btnLogin.Size = UDim2.new(0.8, 0, 0, 40)
+btnLogin.Position = UDim2.new(0.1, 0, 0.7, 0)
+btnLogin.BackgroundColor3 = Color3.fromRGB(160, 110, 220)
+btnLogin.Text = " TUNGGU BENTAR PRENN..."
+btnLogin.TextColor3 = Color3.fromRGB(255, 255, 255)
+btnLogin.Font = Enum.Font.GothamBold
+Instance.new("UICorner", btnLogin).CornerRadius = UDim.new(0, 8)
+
+task.spawn(function()
+    local Name = "PhantomWalk-PRO-1"
+    local Ownerid = "drBGNk4DVL"
+    local Version = "1.0"
+    local sessionid = ""
+    local hwid = game:GetService("RbxAnalyticsService"):GetClientId()
+
+    local function request_get(url)
+        local req = request or http_request or (http and http.request)
+        if req then return req({Url = url, Method = "GET"}).Body end
+        return game:HttpGet(url)
+    end
+
+    local initRes = request_get("https://keyauth.win/api/1.2/?type=init&ver="..Version.."&name="..Name.."&ownerid="..Ownerid)
+    local initData = HttpService:JSONDecode(initRes)
+    if not initData.success then infoLabel.Text = "Server Error: " .. initData.message return end
+    sessionid = initData.sessionid
+
+    local savedKey = ""
+    pcall(function()
+        if isfile(saveFileName) then
+            local fileContent = readfile(saveFileName)
+            local data = HttpService:JSONDecode(fileContent)
+            savedKey = data.Key
+        end
+    end)
+
+    local function tryLogin(key)
+        btnLogin.Text = "Mengecek License..."
+        local licRes = request_get("https://keyauth.win/api/1.2/?type=license&key="..key.."&hwid="..hwid.."&sessionid="..sessionid.."&name="..Name.."&ownerid="..Ownerid.."&ver="..Version)
+        local licData = HttpService:JSONDecode(licRes)
+
+        if licData.success then
+            pcall(function() writefile(saveFileName, HttpService:JSONEncode({Key = key})) end)
+            
+            -- Hitung Mundur Waktu
+            local expiryTime = tonumber(licData.info.expiry)
+            local sisaWaktuStr = ""
+            if expiryTime then
+                local timeLeft = expiryTime - os.time()
+                if timeLeft > 0 then
+                    local d = math.floor(timeLeft / 86400)
+                    local h = math.floor((timeLeft % 86400) / 3600)
+                    local m = math.floor((timeLeft % 3600) / 60)
+                    sisaWaktuStr = "Sisa Waktu: " .. d .. " Hari " .. h .. " Jam " .. m .. " Menit"
+                else
+                    sisaWaktuStr = "Waktu Habis (Expired)!"
+                end
+            end
+            
+            -- [KEAMANAN MUTLAK: TARIK DATA VIA WEBHOOK KEYAUTH]
+            infoLabel.Text = "Mengambil data aman dari server..."
+            btnLogin.Text = "MENGUNDUH..."
+            
+            local varRes = request_get("https://keyauth.win/api/1.2/?type=webhook&webid=main_lua&sessionid="..sessionid.."&name="..Name.."&ownerid="..Ownerid.."&ver="..Version)
+            local varData = HttpService:JSONDecode(varRes)
+            
+            if varData.success then
+                -- Menyimpan isi file dari Webhook untuk dieksekusi
+                mainCodeToExecute = varData.message
+                frame:Destroy()
+                showSplash("VIP MEMBER " .. utf8.char(11088), "License Valid!\n" .. sisaWaktuStr, Color3.fromRGB(255, 215, 0))
+            else
+                infoLabel.Text = "Gagal Server: Webhook ditolak!"
+                btnLogin.Text = "LOGIN & EXECUTE"
+                txtKey.Visible = true
+            end
+
+        else
+            infoLabel.Text = "Gagal: " .. (licData.message or "Key Salah!")
+            btnLogin.Text = "LOGIN & EXECUTE"
+            txtKey.Visible = true
+        end
+    end
+
+    if savedKey ~= "" then
+        infoLabel.Text = "Mendeteksi HWID... Mencoba Auto-Login"
+        tryLogin(savedKey)
+    else
+        infoLabel.Text = "Silahkan masukkan License Key kamu"
+        btnLogin.Text = "LOGIN & EXECUTE"
+        txtKey.Visible = true
+    end
+
+    btnLogin.MouseButton1Click:Connect(function()
+        if txtKey.Text ~= "" then tryLogin(txtKey.Text) end
+    end)
+end)
