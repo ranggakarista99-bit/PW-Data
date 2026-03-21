@@ -18,6 +18,7 @@ local pesanBuatAyang = "mangat ayyyy! " .. utf8.char(10084) .. utf8.char(128150)
 -- 🌟 Daftar Spesial Member
 local specialMembers = {
     ["OmGifar133"] = utf8.char(128081) .. " OM GIFAR " .. utf8.char(128081),
+    ["Gredd_5"] = utf8.char(128081) .. " KING GRED " .. utf8.char(128081),
     ["Anomali_9950"] = "BEST PRENNN",
     ["jaja"] = "BEST PRENNN",
     ["hsj"] = "BEST PRENNN",
