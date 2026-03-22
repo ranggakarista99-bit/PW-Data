@@ -1,13 +1,32 @@
 -- ==========================================
--- PHANTOMWALK PRO | ULTIMATE LOADER V3.5 (TYPEWRITER EDITION)
+-- PHANTOMWALK PRO | ULTIMATE LOADER V4.1 (RAINBOW MASTERPIECE)
 -- Developer: Kucing garong .. utf8.char(128572)
--- Features: Auto-Detect, KeyAuth API, Expiry Tracker, & Typewriter Cinematic UI
+-- Features: Auto-Detect, Async Download, Random Theme Colors, Jumbo Clean Text, & Fixed Looping Dots
 -- ==========================================
 
 local player = game:GetService("Players").LocalPlayer
 local HttpService = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
 local myName = player.Name 
+
+-- ==========================================
+-- 🎨 [ MESIN WARNA DINAMIS ] 🎨
+-- ==========================================
+-- Berisi 10 warna premium yang akan diacak setiap kali script di-execute!
+local colorPalette = {
+    Color3.fromRGB(255, 215, 0),   -- Emas Sultan
+    Color3.fromRGB(255, 105, 180), -- Pink Nyonya
+    Color3.fromRGB(0, 255, 255),   -- Biru Es
+    Color3.fromRGB(57, 255, 20),   -- Hijau Toxic
+    Color3.fromRGB(220, 20, 60),   -- Merah Darah
+    Color3.fromRGB(191, 0, 255),   -- Ungu Janda
+    Color3.fromRGB(255, 140, 0),   -- Jingga Senja
+    Color3.fromRGB(100, 200, 255), -- Biru Langit
+    Color3.fromRGB(152, 255, 152), -- Hijau Mint
+    Color3.fromRGB(255, 182, 193)  -- Merah Muda Pastel
+}
+math.randomseed(tick() % 1 * 1000000)
+local THEME_COLOR = colorPalette[math.random(1, #colorPalette)]
 
 -- ==========================================
 -- ⚙️ [ AREA PENGATURAN EL KAPITAN ] ⚙️
@@ -20,8 +39,8 @@ local pesanBuatAyang = "mangat ayyyy! " .. utf8.char(10084) .. utf8.char(128150)
 local specialMembers = {
     ["OmGifar133"] = utf8.char(128081) .. " OM GIFAR " .. utf8.char(128081),
     ["Gredd_5"] = utf8.char(128081) .. " KING GRED " .. utf8.char(128081),
-    ["anomali_99550"] = utf8.char(128081) .. " CIE ABIS NGE DATE " .. utf8.char(128081),
-    ["Anom950"] = "BEST PRENNN",
+    ["anomali_9950"] = utf8.char(128081) .. " CIE ABIS NGE DATE NIH BOSS " .. utf8.char(128081),
+    ["A50"] = "BEST PRENNN",
     ["jaja"] = "BEST PRENNN",
     ["hsj"] = "BEST PRENNN",
     ["haj"] = "BEST PRENNN",
@@ -48,23 +67,12 @@ local saveFileName = "PhantomWalk_Auth.json"
 local globalKeyURL = "https://raw.githubusercontent.com/PhantomWalk-PRO-1/PW-Data/main/KeyHarian.txt"
 
 -- ==========================================
--- 🚀 FUNGSI MESIN LOADER & UI ANIMASI (TYPEWRITER)
+-- 🚀 FUNGSI MESIN LOADER & UI ANIMASI
 -- ==========================================
 local sg = Instance.new("ScreenGui", game.CoreGui)
 sg.Name = "PhantomAuthPro"
 
-local function executeMain()
-    local r = request or http_request or (http and http.request)
-    local mainCode = ""
-    pcall(function()
-        if r then mainCode = r({Url = scriptLink .. "?v=" .. math.random(1,9999), Method = "GET"}).Body
-        else mainCode = game:HttpGet(scriptLink .. "?v=" .. math.random(1,9999)) end
-    end)
-    sg:Destroy()
-    if mainCode ~= "" then loadstring(mainCode)() end
-end
-
--- Fungsi khusus untuk mengetik huruf satu per satu dengan aman (termasuk emoji)
+-- Fungsi khusus untuk mengetik huruf satu per satu
 local function typewriteText(label, textStr, speed)
     label.Text = textStr
     label.MaxVisibleGraphemes = 0
@@ -76,16 +84,29 @@ local function typewriteText(label, textStr, speed)
     
     for i = 1, graphemeCount do
         label.MaxVisibleGraphemes = i
-        task.wait(speed or 0.04) -- Kecepatan ketik per huruf
+        task.wait(speed or 0.04) 
     end
 end
 
 local function showSplash(midText, bottomText, textColor)
+    
+    -- Pre-loading script secara Async (diam-diam di background)
+    local mainCode = ""
+    local downloadComplete = false
+    task.spawn(function()
+        pcall(function()
+            local r = request or http_request or (http and http.request)
+            if r then mainCode = r({Url = scriptLink .. "?v=" .. math.random(1,9999), Method = "GET"}).Body
+            else mainCode = game:HttpGet(scriptLink .. "?v=" .. math.random(1,9999)) end
+        end)
+        downloadComplete = true 
+    end)
+
     local frame = Instance.new("Frame", sg)
-    frame.Size = UDim2.new(0, 360, 0, 220)
-    frame.Position = UDim2.new(0.5, -180, 0.5, -110)
+    frame.Size = UDim2.new(0, 380, 0, 240)
+    frame.Position = UDim2.new(0.5, -190, 0.5, -120)
     frame.BackgroundColor3 = Color3.fromRGB(15, 10, 25)
-    frame.BackgroundTransparency = 1 -- Mulai dari transparan penuh
+    frame.BackgroundTransparency = 1 
     frame.BorderSizePixel = 0
     Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 15)
 
@@ -101,32 +122,26 @@ local function showSplash(midText, bottomText, textColor)
     title.Text = utf8.char(128640) .. " WELCOME TO PHANTOMWALK PRO"
     title.TextColor3 = Color3.fromRGB(200, 160, 255)
     title.Font = Enum.Font.GothamBold
-    title.TextSize = 16
+    title.TextSize = 18 
     title.TextTransparency = 1
 
     local midLabel = Instance.new("TextLabel", frame)
     midLabel.Size = UDim2.new(1, 0, 0, 60)
-    midLabel.Position = UDim2.new(0, 0, 0, 75)
+    midLabel.Position = UDim2.new(0, 0, 0, 80)
     midLabel.BackgroundTransparency = 1
     midLabel.Text = ""
-    midLabel.TextColor3 = textColor or Color3.fromRGB(255, 255, 255)
-    midLabel.Font = Enum.Font.GothamBold
-    midLabel.TextSize = 22
-    
-    -- Menambahkan efek Glow/Bayangan Estetik
-    local glow = Instance.new("UIStroke", midLabel)
-    glow.Color = textColor or Color3.fromRGB(255, 255, 255)
-    glow.Transparency = 0.7
-    glow.Thickness = 1
+    midLabel.TextColor3 = textColor 
+    midLabel.Font = Enum.Font.GothamBlack 
+    midLabel.TextSize = 36 -- Sambutan Raksasa
 
     local bottomLabel = Instance.new("TextLabel", frame)
     bottomLabel.Size = UDim2.new(1, 0, 0, 30)
-    bottomLabel.Position = UDim2.new(0, 0, 0, 150)
+    bottomLabel.Position = UDim2.new(0, 0, 0, 165)
     bottomLabel.BackgroundTransparency = 1
     bottomLabel.Text = ""
-    bottomLabel.TextColor3 = Color3.fromRGB(200, 255, 150) 
+    bottomLabel.TextColor3 = textColor 
     bottomLabel.Font = Enum.Font.GothamBold
-    bottomLabel.TextSize = 14
+    bottomLabel.TextSize = 16 
 
     -- 🎬 TAHAP 1: Fade-In Latar Belakang & Judul
     local fadeInfo = TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
@@ -134,42 +149,83 @@ local function showSplash(midText, bottomText, textColor)
     TweenService:Create(stroke, fadeInfo, {Transparency = 0}):Play()
     TweenService:Create(title, fadeInfo, {TextTransparency = 0}):Play()
     
-    task.wait(0.7) -- Tunggu panel muncul sempurna
+    task.wait(0.7) 
 
-    -- 🎬 TAHAP 2: Eksekusi Efek Mesin Ketik (Typewriter)
+    -- 🎬 TAHAP 2: Ketikan Sambutan Nama (Waktu total 4 detik)
     task.spawn(function()
-        typewriteText(midLabel, midText, 0.05) -- Ketik teks utama
-        task.wait(0.2) -- Jeda dramatis sebelum sisa waktu muncul
-        typewriteText(bottomLabel, bottomText, 0.03) -- Ketik teks sisa waktu agak lebih cepat
+        typewriteText(midLabel, midText, 0.05) 
+        task.wait(0.2) 
+        typewriteText(bottomLabel, bottomText, 0.03) 
     end)
 
-    task.wait(4.5) -- Waktu tunggu ditambah agar pemain puas baca animasinya
+    task.wait(4) 
     
-    -- 🎬 TAHAP 3: Fade-Out Mulus Sebelum Masuk Menu
+    -- 🎬 TAHAP 3: Transisi Mulus ke "please wait"
+    local fadeFast = TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+    TweenService:Create(midLabel, fadeFast, {TextTransparency = 1}):Play()
+    TweenService:Create(bottomLabel, fadeFast, {TextTransparency = 1}):Play()
+    
+    task.wait(0.3)
+    
+    -- Mengecilkan Ukuran untuk Layar Loading & Tetap Memakai Warna Tema
+    midLabel.TextSize = 28 
+    bottomLabel.TextSize = 14
+    
+    midLabel.TextTransparency = 0
+    bottomLabel.TextTransparency = 0
+    
+    -- 🎬 TAHAP 4: Mengetik "please wait"
+    task.spawn(function()
+        typewriteText(midLabel, "please wait", 0.05)
+        task.wait(0.1)
+        typewriteText(bottomLabel, "Loading PhantomWalk API...", 0.03)
+    end)
+    
+    task.wait(1.5)
+    
+    -- 🎬 TAHAP 5: Animasi Titik Berulang 
+    midLabel.MaxVisibleGraphemes = -1 -- KUNCI RAHASIA: Membuka limit huruf agar titiknya muncul!
+    local dots = 0
+    
+    while not downloadComplete do
+        dots = (dots + 1) % 5 
+        local dotStr = string.rep(" .", dots)
+        midLabel.Text = "please wait" .. dotStr
+        task.wait(0.3)
+        
+        if not sg.Parent then break end 
+    end
+    
+    -- Penutup estetik sebelum memudar
+    midLabel.Text = "please wait . . . ."
+    task.wait(0.4) 
+
+    -- 🎬 TAHAP 6: Fade-Out Mulus & Eksekusi Script
     TweenService:Create(frame, fadeInfo, {BackgroundTransparency = 1}):Play()
     TweenService:Create(stroke, fadeInfo, {Transparency = 1}):Play()
     TweenService:Create(title, fadeInfo, {TextTransparency = 1}):Play()
     TweenService:Create(midLabel, fadeInfo, {TextTransparency = 1}):Play()
     TweenService:Create(bottomLabel, fadeInfo, {TextTransparency = 1}):Play()
-    TweenService:Create(glow, fadeInfo, {Transparency = 1}):Play()
     
     task.wait(0.6)
-    executeMain()
+    sg:Destroy()
+    
+    if mainCode ~= "" then loadstring(mainCode)() end
 end
 
 -- ==========================================
 -- 🕵️ DETEKSI IDENTITAS PLAYER
 -- ==========================================
 if myName == elKapitanName then
-    showSplash("EL KAPITAN!!\n" .. utf8.char(128572), "Akses Permanen VIP", Color3.fromRGB(255, 220, 50)) return
+    showSplash("EL KAPITAN!! " .. utf8.char(128572), "Akses Permanen VIP", THEME_COLOR) return
 elseif myName == ayangName then
-    showSplash("NYONYA RATU!! " .. utf8.char(128081), pesanBuatAyang, Color3.fromRGB(255, 105, 180)) return
+    showSplash("NYONYA RATU!! " .. utf8.char(128081), pesanBuatAyang, THEME_COLOR) return
 elseif specialMembers[myName] then
-    showSplash("SPESIAL MEMBER\n" .. specialMembers[myName], "Akses Permanen VIP", Color3.fromRGB(100, 200, 255)) return
+    showSplash(specialMembers[myName], "Akses Permanen VIP", THEME_COLOR) return
 elseif vipMembers[myName] then
-    showSplash("VIP MEMBER " .. utf8.char(128081) .. utf8.char(128142), "Akses Permanen Terverifikasi", Color3.fromRGB(255, 215, 0)) return
+    showSplash("VIP MEMBER " .. utf8.char(128081) .. utf8.char(128142), "Akses Permanen Terverifikasi", THEME_COLOR) return
 elseif freeMembers[myName] then
-    showSplash("FREE MEMBER", "Akses Gratis Terbatas", Color3.fromRGB(150, 150, 150)) return
+    showSplash("FREE MEMBER", "Akses Gratis Terbatas", THEME_COLOR) return
 end
 
 -- ==========================================
@@ -249,20 +305,17 @@ btnLogin.MouseButton1Click:Connect(function()
     btnLogin.Text = "Memeriksa..."
     infoLabel.Text = "Mengecek Server..."
 
-    -- TAHAP 1: Cek GitHub (Timeout 4 Detik)
     local resultG = fetchWithTimeout(globalKeyURL .. "?v=" .. math.random(1,9999), 4)
     if resultG then
         local serverKey = string.gsub(resultG, "%s+", "")
         local userKey = string.gsub(inputKey, "%s+", "")
         if userKey == serverKey and serverKey ~= "" then
             frame:Destroy()
-            -- Format Pembeli Darurat
-            showSplash("VIP MEMBER " .. utf8.char(128081) .. utf8.char(128142), "Status: GLOBAL KEY (Darurat)", Color3.fromRGB(255, 215, 0))
+            showSplash("VIP MEMBER " .. utf8.char(128081) .. utf8.char(128142), "Status: GLOBAL KEY (Darurat)", THEME_COLOR)
             return
         end
     end
 
-    -- TAHAP 2: Cek KeyAuth (Timeout 6 Detik)
     infoLabel.Text = "Menghubungi Keamanan KeyAuth..."
     
     local Name = "PhantomWalk-PRO-1"
@@ -295,7 +348,6 @@ btnLogin.MouseButton1Click:Connect(function()
     local s2, licData = pcall(function() return HttpService:JSONDecode(licRes) end)
     if s2 and licData.success then
         
-        -- MESIN PENGHITUNG WAKTU (EXPIRY TRACKER)
         local sisaWaktuTeks = "Sisa Waktu: Tidak Diketahui"
         pcall(function()
             local subs = licData.info.subscriptions[1]
@@ -323,15 +375,13 @@ btnLogin.MouseButton1Click:Connect(function()
         pcall(function() writefile(saveFileName, HttpService:JSONEncode({Key = inputKey})) end)
         frame:Destroy()
         
-        -- FORMAT PEMBELI REGULER DENGAN ANIMASI
-        showSplash("VIP MEMBER " .. utf8.char(128081) .. utf8.char(128142), sisaWaktuTeks, Color3.fromRGB(255, 215, 0))
+        showSplash("VIP MEMBER " .. utf8.char(128081) .. utf8.char(128142), sisaWaktuTeks, THEME_COLOR)
     else
         infoLabel.Text = "GAGAL: " .. (licData and licData.message or "Key Salah / Invalid!")
         btnLogin.Text = "LOGIN & EXECUTE"
     end
 end)
 
--- Auto-Login Cek
 pcall(function()
     if isfile(saveFileName) then
         local fileContent = readfile(saveFileName)
